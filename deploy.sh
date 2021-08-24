@@ -4,7 +4,7 @@ git submodule init
 git submodule update
 
 ## 2016
-pushd FATA2016-Site
+pushd 2016.FATA
 git pull origin master
 
 if [ ! -d themes ]; then
@@ -18,21 +18,21 @@ hugo -d public/2016
 popd
 
 ## 2017
-pushd FATA2017-Site
+pushd 2017.FATA
 git pull origin master
 jekyll build --destination _site/2017
 popd
 
 ## update submodules
-git add FATA2016-Site FATA2017-Site
+git add 2016.FATA 2017.FATA
 git commit -m "update submodules to their latest commit"
 git push origin master
 git checkout -- .
 
 ## create new branch and push
 git checkout --orphan gh-pages
-mv FATA2016-Site/public/2016 .
-mv FATA2017-Site/_site/2017 .
+mv 2016.FATA/public/2016 .
+mv 2017.FATA/_site/2017 .
 
 git rm --cached -r .
 git add CNAME index.html js
