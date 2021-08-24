@@ -1,8 +1,0 @@
-[submodule "2016.FATA"]
-	path = FATA2016-Site
-	url = git@github.com:thiagohersan-www/2016.FATA.git
-	branch = master
-[submodule "2017.FATA"]
-	path = FATA2017-Site
-	url = git@github.com:thiagohersan-www/2017.FATA.git
-	branch = master
