@@ -34,8 +34,10 @@ git checkout --orphan gh-pages
 mv 2016.FATA/public/2016 .
 mv 2017.FATA/_site/2017 .
 
+rm -rf 2016.FATA 2017.FATA .gitmodules
+
 git rm --cached -r .
-git rm 2016.FATA 2017.FATA
+git rm 2016.FATA 2017.FATA .gitmodules
 git add CNAME index.html js
 git add 2016
 git add 2017
