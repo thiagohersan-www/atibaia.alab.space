@@ -1,6 +1,6 @@
 [submodule "2016.FATA"]
 	path = 2016.FATA
-	url = thiagohersan-hub:thiagohersan-www/2016.FATA.git
+	url = git@github.com:thiagohersan-www/2016.FATA.git
 [submodule "2017.FATA"]
 	path = 2017.FATA
-	url = thiagohersan-hub:thiagohersan-www/2017.FATA.git
+	url = git@github.com:thiagohersan-www/2017.FATA.git
