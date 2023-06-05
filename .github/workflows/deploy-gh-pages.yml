@@ -54,13 +54,8 @@ jobs:
       - name: Build 2017
         run: |
           pushd 2017.FATA
-          mkdir -p _site/2017
-          touch _site/2017/index.html
+          jekyll build --destination _site/2017
           popd
-        # run: |
-        #   pushd 2017.FATA
-        #   jekyll build --destination _site/2017
-        #   popd
 
       - name: Build
         run: |
