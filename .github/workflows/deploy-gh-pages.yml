@@ -1,14 +1,9 @@
 name: deploy gh-pages
 
 on:
-  repository_dispatch:
-    types: [submodule_push]
   push:
     branches:
       - main
-    paths-ignore:
-      - '2016.FATA/**'
-      - '2017.FATA/**'
 
 jobs:
   build:
@@ -16,53 +11,27 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
+
+      - name: Checkout 2016
+        uses: actions/checkout@v3
         with:
-          submodules: true
+          repository: 'thiagohersan-www/2016.FATA'
+          ref: 'gh-pages'
+          path: '2016'
 
-      - name: Install Hugo
-        run: |
-          wget https://github.com/gohugoio/hugo/releases/download/v0.19/hugo_0.19-64bit.deb
-          sudo dpkg -i hugo_0.19-64bit.deb
-
-      - name: Submodules
-        run: |
-          pushd 2016.FATA
-          git pull origin main
-          popd
-          pushd 2017.FATA
-          git pull origin main
-          popd
-          git config --local user.name "${{ secrets.USER_NAME }}"
-          git config --local user.email "${{ secrets.USER_EMAIL }}"
-          git add 2016.FATA 2017.FATA
-          git diff-index --quiet HEAD || git commit -m "update submodules"
-          git push origin main
-
-      - name: Build 2016
-        run: |
-          pushd 2016.FATA
-          if [ ! -d themes ]; then
-            mkdir themes
-            pushd themes
-            git clone https://github.com/digitalcraftsman/hugo-creative-theme.git
-            popd
-          fi
-          hugo -d public/2016
-          popd
-
-      - name: Build 2017
-        uses: actions/jekyll-build-pages@v1
+      - name: Checkout 2017
+        uses: actions/checkout@v3
         with:
-          source: './2017.FATA'
-          destination: './2017.FATA/_site/2017'
+          repository: 'thiagohersan-www/2017.FATA'
+          ref: 'gh-pages'
+          path: '2017'
 
       - name: Build
         run: |
           mkdir public
-          cp -r CNAME index.html js public/
-          cp -r 2016.FATA/public/2016 ./public
-          cp -r 2017.FATA/_site/2017 ./public
+          cp -r CNAME index.html js ./public/
+          cp -r 2016 2017 ./public/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
