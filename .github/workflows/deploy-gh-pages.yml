@@ -1,6 +1,8 @@
 name: deploy gh-pages
 
 on:
+  repository_dispatch:
+    types: [submodule_push]
   push:
     branches:
       - main
@@ -26,10 +28,10 @@ jobs:
       - name: Submodules
         run: |
           pushd 2016.FATA
-          git pull origin master
+          git pull origin main
           popd
           pushd 2017.FATA
-          git pull origin master
+          git pull origin main
           popd
           git config --local user.name "${{ secrets.USER_NAME }}"
           git config --local user.email "${{ secrets.USER_EMAIL }}"
