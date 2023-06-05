@@ -1,6 +1,9 @@
 name: deploy gh-pages
 
 on:
+  repository_dispatch:
+    types:
+      - build-site
   push:
     branches:
       - main
