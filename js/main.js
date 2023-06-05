@@ -1,6 +1,6 @@
 setTimeout(function() {
   window.location.href = "2016/";
-}, 10e3);
+}, 20e3);
 
 function lerpValue(y0, y1, pos) {
   return (y0 + pos * (y1 - y0));
