@@ -52,10 +52,10 @@ jobs:
         #   popd
 
       - name: Build 2017
-        run: |
-          pushd 2017.FATA
-          jekyll build --destination _site/2017
-          popd
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: './2017.FATA'
+          destination: './2017.FATA/_site/2017'
 
       - name: Build
         run: |
