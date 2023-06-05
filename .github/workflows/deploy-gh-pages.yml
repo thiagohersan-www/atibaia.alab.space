@@ -33,6 +33,8 @@ jobs:
           cp -r CNAME index.html js ./public/
           mv ./2016 ./public/2016
           mv ./2017 ./public/2017
+          ls -la public
+          ls -la public/2016
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
