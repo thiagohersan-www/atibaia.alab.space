@@ -31,10 +31,11 @@ jobs:
         run: |
           mkdir public
           cp -r CNAME index.html js ./public/
-          mv ./2016 ./public/2016
-          mv ./2017 ./public/2017
-          ls -la public
-          ls -la public/2016
+          cp -r 2016 2017 ./public/
+          ls -la ./public
+          ls -la ./public/2016
+          ls -la ./public/2017
+          rm -rf ./public/2016/.git ./public/2017/.git
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
