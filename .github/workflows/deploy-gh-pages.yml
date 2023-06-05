@@ -32,9 +32,6 @@ jobs:
           mkdir public
           cp -r CNAME index.html js ./public/
           cp -r 2016 2017 ./public/
-          ls -la ./public
-          ls -la ./public/2016
-          ls -la ./public/2017
           rm -rf ./public/2016/.git ./public/2017/.git
 
       - name: Deploy
