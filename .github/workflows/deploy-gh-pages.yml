@@ -11,14 +11,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # env:
-    #   GHTOKEN: ${{ secrets.PUSH_TOKEN }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@master
         with:
           submodules: true
+
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.110.0'
 
       - name: Submodules
         run: |
@@ -37,19 +40,14 @@ jobs:
       - name: Build 2016
         run: |
           pushd 2016.FATA
-          mkdir -p public/2016
-          touch public/2016/index.html
+          if [ ! -d themes ]; then
+            mkdir themes
+            pushd themes
+            git clone https://github.com/digitalcraftsman/hugo-creative-theme.git
+            popd
+          fi
+          hugo -d public/2016
           popd
-        # run: |
-        #   pushd 2016.FATA
-        #   if [ ! -d themes ]; then
-        #     mkdir themes
-        #     pushd themes
-        #     git clone https://github.com/digitalcraftsman/hugo-creative-theme.git
-        #     popd
-        #   fi
-        #   hugo -d public/2016
-        #   popd
 
       - name: Build 2017
         uses: actions/jekyll-build-pages@v1
