@@ -17,11 +17,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
+        with:
+          submodules: true
 
       - name: Submodules
         run: |
-          git submodule init
-          git submodule update
           pushd 2016.FATA
           git pull origin master
           popd
