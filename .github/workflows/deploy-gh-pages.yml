@@ -1,0 +1,77 @@
+name: deploy gh-pages
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '2016.FATA/**'
+      - '2017.FATA/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # env:
+    #   GHTOKEN: ${{ secrets.PUSH_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Submodules
+        run: |
+          git submodule init
+          git submodule update
+          pushd 2016.FATA
+          git pull origin master
+          popd
+          pushd 2017.FATA
+          git pull origin master
+          popd
+          git config --local user.name "${{ secrets.USER_NAME }}"
+          git config --local user.email "${{ secrets.USER_EMAIL }}"
+          git add 2016.FATA 2017.FATA
+          git commit -m "update submodules"
+          git push origin master
+
+      - name: Build 2016
+        run: |
+          pushd 2016.FATA
+          mkdir -p public/2016
+          touch public/2016/index.html
+          popd
+        # run: |
+        #   pushd 2016.FATA
+        #   if [ ! -d themes ]; then
+        #     mkdir themes
+        #     pushd themes
+        #     git clone https://github.com/digitalcraftsman/hugo-creative-theme.git
+        #     popd
+        #   fi
+        #   hugo -d public/2016
+        #   popd
+
+      - name: Build 2017
+        run: |
+          pushd 2017.FATA
+          mkdir -p _site/2017
+          touch _site/2017/index.html
+          popd
+        # run: |
+        #   pushd 2017.FATA
+        #   jekyll build --destination _site/2017
+        #   popd
+
+      - name: Build
+        run: |
+          mkdir public
+          cp -r CNAME index.html js public/
+          cp -r 2016.FATA/public/2016 ./public
+          cp -r 2017.FATA/_site/2017 ./public
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
