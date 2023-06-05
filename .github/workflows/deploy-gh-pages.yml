@@ -19,6 +19,10 @@ jobs:
           repository: 'thiagohersan-www/2016.FATA'
           ref: 'gh-pages'
           path: '2016'
+        run: |
+          pushd 2016
+          ls -la
+          popd
 
       - name: Checkout 2017
         uses: actions/checkout@v3
@@ -26,6 +30,10 @@ jobs:
           repository: 'thiagohersan-www/2017.FATA'
           ref: 'gh-pages'
           path: '2017'
+        run: |
+          pushd 2017
+          ls -la
+          popd
 
       - name: Build
         run: |
