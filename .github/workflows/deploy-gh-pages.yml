@@ -31,7 +31,7 @@ jobs:
           git config --local user.name "${{ secrets.USER_NAME }}"
           git config --local user.email "${{ secrets.USER_EMAIL }}"
           git add 2016.FATA 2017.FATA
-          git commit -m "update submodules"
+          git diff-index --quiet HEAD || git commit -m "update submodules"
           git push origin master
 
       - name: Build 2016
